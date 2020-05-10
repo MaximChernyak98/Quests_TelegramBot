@@ -8,7 +8,7 @@ import time
 
 
 # Даем доступ к таблице
-CREDENTIALS_FILE = 'c:\\Work\\Python\\telegram_bot\\credentials.json'
+CREDENTIALS_FILE = 'c:\\Work\\Python\\Quests_TelegramBot\\credentials.json'
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credentials = Credentials.from_service_account_file(CREDENTIALS_FILE, scopes=scope)
@@ -34,7 +34,7 @@ def print_quests():
 
 # Запуск расписания запуска отправки списка
 def run_print():
-    schedule.every().day.at("23:05:30").do(print_quests)
+    schedule.every().day.at("13:34:55").do(print_quests)
     while True:
         schedule.run_pending()
         time.sleep(2)
