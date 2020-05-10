@@ -1,24 +1,9 @@
-import logging
-import threading
-import time
+from datetime import datetime, timedelta
+import schedule
 
-def thread_function(name):
-    logging.info("Thread %s: starting", name)
-    time.sleep(10)
-    logging.info("Thread %s: finishing", name)
+def print_epta():
+    print("Епта")
 
-if __name__ == "__main__":
-    format = "%(asctime)s: %(message)s"
-    logging.basicConfig(format=format, level=logging.INFO,
-                        datefmt="%H:%M:%S")
+x = datetime.now() + timedelta(seconds=10)
 
-    logging.info("Main    : before creating thread")
-    time.sleep(3)
-    x = threading.Thread(target=thread_function, args=(1,))
-    logging.info("Main    : before running thread")
-    time.sleep(3)
-    x.start()
-    logging.info("Main    : wait for the thread to finish")
-    # x.join()
-    time.sleep(3)
-    logging.info("Main    : all done")
+schedule.every().day.at("13:57:20").do(print_epta)

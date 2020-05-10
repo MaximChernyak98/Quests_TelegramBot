@@ -1,7 +1,7 @@
 import telebot
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 import schedule
 import threading
 import time
@@ -34,7 +34,8 @@ def print_quests():
 
 # Запуск расписания запуска отправки списка
 def run_print():
-    schedule.every().day.at("13:34:55").do(print_quests)
+    time_start = (datetime.now() + timedelta(seconds=5)).strftime("%H:%M:%S")
+    schedule.every().day.at(time_start).do(print_quests)
     while True:
         schedule.run_pending()
         time.sleep(2)
