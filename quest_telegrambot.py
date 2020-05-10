@@ -24,13 +24,13 @@ bot = telebot.TeleBot("1134602259:AAFnxbhTUG3WQlVBjzdH_11zRywl9lYK1_4")
 def print_quests():
     yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
     values_list = worksheet.row_values(1)
-    for i in range(1, len(values_list)):
+    for index, value in enumerate(values_list[1:]):
         markup = telebot.types.InlineKeyboardMarkup()
-        button1 = telebot.types.InlineKeyboardButton(text='Сделал', callback_data=f'успех/{yesterday}/{i}')
-        button2 = telebot.types.InlineKeyboardButton(text='Не сделал', callback_data=f'провал/{yesterday}/{i}')
+        button1 = telebot.types.InlineKeyboardButton(text='Сделал', callback_data=f'успех/{yesterday}/{index}')
+        button2 = telebot.types.InlineKeyboardButton(text='Не сделал', callback_data=f'провал/{yesterday}/{index}')
         markup.add(button1, button2)
         #chat_id=message.chat.id,
-        bot.send_message(chat_id=341231444, text=values_list[i], reply_markup=markup)
+        bot.send_message(chat_id=341231444, text=value, reply_markup=markup)
 
 # Запуск расписания запуска отправки списка
 def run_print():
