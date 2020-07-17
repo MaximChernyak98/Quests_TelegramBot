@@ -50,7 +50,7 @@ def query_handler(call):
     # Получаем информация от нажатой кнопки
     state = call.data.split("/")[0]
     day = call.data.split("/")[1]
-    number_of_quest = int(call.data.split("/")[2]) + 1
+    number_of_quest = int(call.data.split("/")[2])
     # Ищем строку с нужной датой
     date_list = worksheet.col_values(1)
     row = int(date_list.index(day)) + 1
