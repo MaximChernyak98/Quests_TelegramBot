@@ -23,7 +23,7 @@ worksheet = gc.open_by_key(
 bot = telebot.TeleBot("1134602259:AAFnxbhTUG3WQlVBjzdH_11zRywl9lYK1_4")
 
 
-# Отправка списка квестов
+# Отправка списка квестов 1
 def print_quests():
     yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
     values_list = worksheet.row_values(1)
