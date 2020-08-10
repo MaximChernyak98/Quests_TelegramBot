@@ -6,31 +6,38 @@ import schedule
 import threading
 import time
 
+
 # Даем доступ к таблице
-CREDENTIALS_FILE = 'c:\\Work\\Python\\Quests_TelegramBot\\credentials.json'
+CREDENTIALS_FILE = '/home/mecher/Python/Quests_TelegramBot/credentials.json'
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
-credentials = Credentials.from_service_account_file(CREDENTIALS_FILE, scopes=scope)
+credentials = Credentials.from_service_account_file(
+    CREDENTIALS_FILE, scopes=scope)
 gc = gspread.authorize(credentials)
 
 # Открываем таблицу
-worksheet = gc.open_by_key('1UCAw3PTluEKc3noSBrMcLlfCU1WHhpraLd8Zwh9z9Lg').sheet1
+worksheet = gc.open_by_key(
+    '1UCAw3PTluEKc3noSBrMcLlfCU1WHhpraLd8Zwh9z9Lg').sheet1
 
 # Открываем бота
 bot = telebot.TeleBot("1134602259:AAFnxbhTUG3WQlVBjzdH_11zRywl9lYK1_4")
 
 
 # Отправка списка квестов
-def print_quests():
-    yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
-    values_list = worksheet.row_values(1)
-    for index, value in enumerate(values_list[1:]):
-        markup = telebot.types.InlineKeyboardMarkup()
-        button1 = telebot.types.InlineKeyboardButton(text='Сделал', callback_data=f'успех/{yesterday}/{index + 1}')
-        button2 = telebot.types.InlineKeyboardButton(text='Не сделал', callback_data=f'провал/{yesterday}/{index + 1}')
-        markup.add(button1, button2)
-        # chat_id=message.chat.id,
-        bot.send_message(chat_id=341231444, text=value, reply_markup=markup)
+def print_quests(): 1
+
+
+yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
+values_list = worksheet.row_values(1)
+for index, value in enumerate(values_list[1:]):
+    markup = telebot.types.InlineKeyboardMarkup()
+    button1 = telebot.types.InlineKeyboardButton(
+        text='Сделал', callback_data=f'успех/{yesterday}/{index + 1}')
+    button2 = telebot.types.InlineKeyboardButton(
+        text='Не сделал', callback_data=f'провал/{yesterday}/{index + 1}')
+    markup.add(button1, button2)
+    # chat_id=message.chat.id,
+    bot.send_message(chat_id=341231444, text=value, reply_markup=markup)
 
 
 # Запуск расписания запуска отправки списка
@@ -59,11 +66,13 @@ def query_handler(call):
     date_list = [str(i) for i in worksheet.col_values(1)]
     row = int(date_list.index(day)) + 1
     if state == 'успех':
-        bot.answer_callback_query(callback_query_id=call.id, text=f'Молодца {number_of_quest} {day} {row}')
+        bot.answer_callback_query(
+            callback_query_id=call.id, text=f'Молодца {number_of_quest} {day} {row}')
         set_cell_0_or_1(row, number_of_quest, 1)
 
     else:
-        bot.answer_callback_query(callback_query_id=call.id, text=f'Слабочок {number_of_quest} {day} {row}')
+        bot.answer_callback_query(
+            callback_query_id=call.id, text=f'Слабочок {number_of_quest} {day} {row}')
         set_cell_0_or_1(row, number_of_quest, 0)
 
 
