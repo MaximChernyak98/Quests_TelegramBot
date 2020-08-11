@@ -7,7 +7,7 @@ import threading
 import time
 
 
-# Даем доступ к таблице
+# Даем доступ к таблице 1
 CREDENTIALS_FILE = "credentials.json"
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
