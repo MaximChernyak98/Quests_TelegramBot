@@ -7,7 +7,7 @@ import threading
 import time
 
 
-# Даем доступ к таблице 1
+# Даем доступ к таблице
 CREDENTIALS_FILE = '/home/mecher/Python/Quests_TelegramBot/credentials.json'
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -23,7 +23,7 @@ worksheet = gc.open_by_key(
 bot = telebot.TeleBot("1134602259:AAFnxbhTUG3WQlVBjzdH_11zRywl9lYK1_4")
 
 
-# Отправка списка квестов 2
+# Отправка списка квестов
 def print_quests():
     yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
     values_list = worksheet.row_values(1)
