@@ -8,7 +8,7 @@ import time
 
 
 # Даем доступ к таблице
-CREDENTIALS_FILE = '/home/mecher/Python/Quests_TelegramBot/credentials.json'
+CREDENTIALS_FILE = "credentials.json"
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credentials = Credentials.from_service_account_file(
@@ -43,8 +43,8 @@ def print_quests():
 def run_print():
     time_start = (datetime.now() + timedelta(seconds=5)
                   ).strftime("%H:%M:%S")
-    # schedule.every().day.at(time_start).do(print_quests)
-    schedule.every(20).seconds.do(print_quests)
+    schedule.every().day.at(time_start).do(print_quests)
+    # schedule.every(20).seconds.do(print_quests)
     while True:
         schedule.run_pending()
         time.sleep(2)
