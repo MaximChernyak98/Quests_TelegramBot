@@ -105,8 +105,12 @@ def run_query():
             string = chr(65 + remainder) + string
         return string
 
-    bot.polling(none_stop=True)
-    time.sleep(3)
+    while True:
+        try:
+            bot.polling(none_stop=True)
+
+        except Exception:
+            time.sleep(5)
 
 
 # Запуск потока под расписание
