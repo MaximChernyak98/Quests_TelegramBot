@@ -5,26 +5,22 @@ from datetime import date, datetime, timedelta
 import schedule
 import threading
 import time
+import config
 
 
 # Даем доступ к таблице 1
-CREDENTIALS_FILE = "credentials.json"
+CREDENTIALS_FILE = "./credentials.json"
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credentials = Credentials.from_service_account_file(
     CREDENTIALS_FILE, scopes=scope)
 gc = gspread.authorize(credentials)
 
-# Открываем файл с номером бота
-with open('Bot_number.txt', 'r') as txt:
-    bot_number = txt.readlines()
-
 # Открываем таблицу
-worksheet = gc.open_by_key(
-    '1UCAw3PTluEKc3noSBrMcLlfCU1WHhpraLd8Zwh9z9Lg').sheet1
+worksheet = gc.open_by_key(config.SPREADSHEET_NUMBER).sheet1
 
 # Открываем бота
-bot = telebot.TeleBot(str(bot_number[0]).strip())
+bot = telebot.TeleBot(config.BOT_NUMBER)
 
 
 # Отправка списка квестов
