@@ -1,4 +1,5 @@
 import telebot
+import os
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import date, datetime, timedelta
@@ -9,7 +10,7 @@ import config
 
 
 # Даем доступ к таблице 1
-CREDENTIALS_FILE = "./credentials.json"
+CREDENTIALS_FILE = os.path.dirname(__file__) + "/credentials.json"
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credentials = Credentials.from_service_account_file(
