@@ -50,8 +50,8 @@ def print_quests():
 def run_print():
     #time_start = (datetime.now() + timedelta(seconds=5)).strftime("%H:%M:%S")
     # schedule.every().day.at(time_start).do(print_quests)
-    schedule.every(20).seconds.do(print_quests)
-    # schedule.every().day.at("08:40:00").do(print_quests)
+    # schedule.every(20).seconds.do(print_quests)
+    schedule.every().day.at("08:40:00").do(print_quests)
     logging.info('Start of print quests')
     while True:
         try:
