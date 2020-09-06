@@ -48,9 +48,9 @@ def print_quests():
 
 
 def run_print():
-    time_start = (datetime.now() + timedelta(seconds=5)).strftime("%H:%M:%S")
-    schedule.every().day.at(time_start).do(print_quests)
-    # schedule.every(20).seconds.do(print_quests)
+    #time_start = (datetime.now() + timedelta(seconds=5)).strftime("%H:%M:%S")
+    # schedule.every().day.at(time_start).do(print_quests)
+    schedule.every(20).seconds.do(print_quests)
     # schedule.every().day.at("08:40:00").do(print_quests)
     logging.info('Start of print quests')
     while True:
@@ -115,6 +115,7 @@ def run_query():
         try:
             bot.polling(none_stop=True)
             time.sleep(2)
+            logging.info('мониторю')
         except Exception:
             logging.error(msg='Ошибка опроса')
 
