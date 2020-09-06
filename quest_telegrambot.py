@@ -1,15 +1,16 @@
+import config
 import telebot
 import os
+import time
+from datetime import date, datetime, timedelta
+
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import date, datetime, timedelta
 import schedule
 import threading
-import time
-import config
+import logging
 
-
-# Даем доступ к таблице 1
+# Open spreadsheet
 CREDENTIALS_FILE = os.path.dirname(__file__) + "/credentials.json"
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -17,10 +18,15 @@ credentials = Credentials.from_service_account_file(
     CREDENTIALS_FILE, scopes=scope)
 gc = gspread.authorize(credentials)
 
-# Открываем таблицу
+# Open worksheet
 worksheet = gc.open_by_key(config.SPREADSHEET_NUMBER).sheet1
 
-# Открываем бота
+# Setup logging
+logging.basicConfig(filename='quest_bot_log.txt',
+                    format='%(asctime)s :: %(levelname)s :: %(funcName)s :: %(lineno)d \
+                    :: %(message)s')
+
+# Open bot-session
 bot = telebot.TeleBot(config.BOT_NUMBER)
 
 
@@ -36,8 +42,7 @@ def print_quests():
             text='Не сделал', callback_data=f'провал/{yesterday}/{index + 1}')
         markup.add(button1, button2)
         # chat_id=message.chat.id,
-        bot.send_message(chat_id=341231444, text=value,
-                         reply_markup=markup)
+        bot.send_message(chat_id=341231444, text=value, reply_markup=markup)
 
     # Запуск расписания запуска отправки списка
 
@@ -47,9 +52,13 @@ def run_print():
     schedule.every().day.at(time_start).do(print_quests)
     # schedule.every(20).seconds.do(print_quests)
     # schedule.every().day.at("08:40:00").do(print_quests)
+    logging.info('Start of print quests')
     while True:
-        schedule.run_pending()
-        time.sleep(2)
+        try:
+            schedule.run_pending()
+            time.sleep(4)
+        except Exception:
+            logging.error(msg='Ошибка вывода квестов')
 
 
 def run_query():
@@ -105,9 +114,9 @@ def run_query():
     while True:
         try:
             bot.polling(none_stop=True)
-
+            time.sleep(2)
         except Exception:
-            time.sleep(5)
+            logging.error(msg='Ошибка опроса')
 
 
 # Запуск потока под расписание
