@@ -12,7 +12,7 @@ def print_message_with_keyboard(message, buttons_text_list):
     settings.MYBOT.bot.send_message(chat_id=config.CHAT_ID, text=message, reply_markup=reply_markup)
 
 
-def print_quests():
+def print_quests(*args):
     yesterday = (date.today() - timedelta(days=1)).strftime('%d.%m.%Y')
     values_list = settings.GOOGLE_WORKSHEET.row_values(1)
     for index, value in enumerate(values_list[1:]):

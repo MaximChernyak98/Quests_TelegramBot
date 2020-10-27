@@ -1,4 +1,6 @@
 import logging
+import time
+import datetime
 
 from telegram.ext import (
     MessageHandler,
@@ -8,6 +10,7 @@ from telegram.ext import (
 
 import settings
 import handlers
+import utils
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -18,9 +21,12 @@ logging.basicConfig(
 
 def main():
     dp = settings.MYBOT.dispatcher
+    jq = settings.MYBOT.job_queue
+    time_to_start = datetime.time(hour=19, minute=53)
+    jq.run_daily(utils.print_quests, time=time_to_start)
 
     while True:
-        dp.add_handler(CallbackQueryHandler(handlers.get_state_of_quest()))
+        dp.add_handler(CallbackQueryHandler(handlers.get_state_of_quest))
         settings.MYBOT.start_polling()
 
 

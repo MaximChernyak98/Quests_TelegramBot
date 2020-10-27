@@ -1,3 +1,9 @@
+import os
+
+from telegram.ext import Updater
+import gspread
+from google.oauth2.service_account import Credentials
+
 import config
 
 MYBOT = Updater(token=config.TOKEN, use_context=True)
