@@ -1,7 +1,0 @@
-*.txt
-nimcache/
-nimblecache/
-htmldocs/
-*.json
-venv/
-config.py
