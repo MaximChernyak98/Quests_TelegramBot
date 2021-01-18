@@ -2,27 +2,21 @@
 Quests_TelegramBot - это бот для Telegram, который помогает отслеживать успешность прививания привычек
 
 ### Установка
-
 1. Клонируйте репозиторий, создайте виртуальное окружение
 2. Установите зависимости `pip install -r requirements.txt`
-3. Создайте файл config.py. В тексте укажите информацию формата:
+3. Получите файл с ключами к сервисам Google, назовите файл credentials.json (<https://habr.com/ru/post/483302/>)
+4. Положите файл credentials.json в папку с проектом ```\Quests_TelegramBot```
+5. Создайте файл config.py. В тексте укажите информацию формата:
     ```
     TOKEN = "NUMBER_TELEGRAMBOT_TOKEN"
     SPREAD_SHEET_ID = "NUMBER_GOOGLE_SPREAD_SHEET"
    ```
-5. Запустите файл CountWorkTime_bot.py
-6. Бот начинает работу либо по кнопке "Старт", либо при отправке любого сообщения
-  
-### Добавление сохранения результатов в Google-spreadsheets   
-Если будет использоваться сохранение в google-таблицы необходимо:
-1. Получите файл с ключами к сервисам Google, назовите файл credentials.json (<https://habr.com/ru/post/483302/>)
-2. Положите файл credentials.json в папку с проектом ```\CountWorkTime_bot```
-3. Поставьте поле в файле ```settings.py``` ```USE_GOOGLE_SPREADSHEET = True```
+6. Запустите файл ```quest_telegrambot.py```
 
 ### Добавление автозапуска бота при старте (Windows)
 1. Создайте файл с расширением *.bat 
 2. В тексте файла необходимо указать следуйщий текст (первая часть - путь к интерпретатору, вторая часть - путь к скрипту):
-    ```C:\_путь к папке проекта_\env\Scripts\python C:\_путь к папке проекта_\CountWorkTime_bot\CountWorkTime_bot.py```
+    ```C:\_путь к папке проекта_\env\Scripts\python C:\_путь к папке проекта_\Quests_TelegramBot\quest_telegrambot.py```
 3. Далее по инструкции <https://www.computerhope.com/issues/ch000322.htm>
 
 ### Добавление автозапуска бота при старте (Linux)
